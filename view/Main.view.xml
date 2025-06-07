@@ -1,30 +1,147 @@
-<mvc:View
-	controllerName="cassyl.cycle.controller.Main"
-	displayBlock="true"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:core="sap.ui.core"
-	core:require="{
-		formatter: 'cassyl/cycle/model/formatter'
-	}">
-
-	<Page
-		title="{i18n>appTitle}"
-		id="page">
-		<content>
-			<IllustratedMessage
-				title="{i18n>appTitle}"
-				illustrationType="sapIllus-SuccessHighFive"
-				enableVerticalResponsiveness="true"
-				description="{i18n>appDescription}">
-				<additionalContent>
-					<Button
-						id="helloButton"
-						text="{formatter: 'formatter.formatValue', path: 'i18n>btnText'}"
-						press="sayHello" />
-				</additionalContent>
-			</IllustratedMessage>
-		</content>
-	</Page>
-
+<mvc:View xmlns:layout="sap.ui.layout"
+          controllerName="cassyl.cycle.controller.Main"
+          xmlns:mvc="sap.ui.core.mvc"
+          displayBlock="true"
+          xmlns="sap.m"
+	      xmlns:core="sap.ui.core">
+		
+	<NavContainer id="wizardNavContainer" initialPage="page"
+	              class="sapUiResponsivePadding--header sapUiResponsivePadding--content">
+		<pages>
+		<Page id="page"
+		      title="{i18n>title}">
+			<content>
+				<Wizard id="Wizard"
+				        complete="onComplete"
+				        enableBranching="true"
+				        class="sapUiResponsivePadding--header sapUiResponsivePadding--content">
+					<WizardStep id="Step1"
+					            title="{i18n>step1Title}"
+					            subsequentSteps="Step2a, Step2b"
+								validated="false"
+					            complete="goToStep2">
+						<Text id="TextStep1"
+						      text="{i18n>step1Text}"
+						      width="100%"/>
+						<HBox id="HboxStep1"
+						      justifyContent="Center"
+						      alignItems="Center"
+						      width="100%">
+							<Button id="YesButton"
+							        text="Oui"
+							        width="150px"
+							        press="onPressYes"
+							        class="sapUiLargeMarginEnd"> </Button>
+							<Button id="NoButton"
+							        text="Non"
+							        width="150px"
+							        press="onPressNo"
+							        class="sapUiLargeMarginEnd"/>
+						</HBox>
+					</WizardStep>
+					<WizardStep id="Step2a"
+					            title="{i18n>step2aTitle}"
+					            complete="onComplete"
+					            activate="check2a"
+					            validated="false">
+						<VBox id="VboxStep2a"
+						      justifyContent="Center"
+						      alignItems="Start"
+						      width="100%">
+							<Text id="TextStep2a"
+							      text="{i18n>step2aText}"
+							      width="100%"/>
+							<Input id="averageCycleInput"
+							       type="Text"
+							       value="{viewModel>/averageCycleLength}"
+							       placeholder="{i18n>averageCyclePlaceholder}"
+							       width="250px"
+							       change="check2a"
+							       class="sapUiSmallMarginTop"/>
+							<DatePicker id="startCycleInput"
+							            value="{viewModel>/startDate}"
+							            placeholder="{i18n>startCycleInputplaceholder}"
+							            displayFormat="dd/MM/yyyy"
+							            valueFormat="yyyy-MM-dd"
+							            change="check2a"
+							            width="350px"
+							            class="sapUiSmallMarginTop"/>
+						</VBox>
+					</WizardStep>
+					<WizardStep id="Step2b"
+					            title="{i18n>step2bTitle}"
+					            complete="onComplete"
+					            activate="check2b"
+					            validated="false">
+						<Text id="TextStep2b"
+						      text="{i18n>step2bText}"
+						      width="100%"/>
+						<List id="cycleList"
+						      items="{
+    path: 'viewModel>/cycles'
+  }">
+							<items>
+								<InputListItem id="cycleListItem">
+									<HBox id="HboxListItem"
+									      alignItems="Center"
+									      justifyContent="SpaceBetween"
+									      width="40%">
+										<items>
+											<Label id="cycleLabel"
+											       text="{viewModel>label}"
+											       required="{viewModel>required}"
+											       wrapping="true"
+											       class="sapUiLargeMarginEnd"/>
+											<DatePicker id="cycleDatePicker"
+											            value="{viewModel>date}"
+											            displayFormat="dd/MM/yyyy"
+											            valueFormat="yyyy-MM-dd"
+											            change="check2b"/>
+										</items>
+									</HBox>
+								</InputListItem>
+							</items>
+						</List>
+					</WizardStep>
+				</Wizard>
+			</content>
+			<footer>
+					<OverflowToolbar id="footerToolbar"
+					                class="sapUiResponsivePadding--header sapUiResponsivePadding--content">
+						<ToolbarSpacer id="ToolbarSpacerPage1"/>
+						<Button id= "BtnCancel" text="Annuler" press="handleWizardCancel"/>
+					</OverflowToolbar>
+				</footer>
+		</Page>
+		<Page id="ReviewPage"
+		      title="{i18n>ReviewPagetitle}">
+			<layout:VerticalLayout id="ReviewPageVertical"
+			                       width="100%"
+			                       class="sapUiContentPadding">
+				<Text id="Text1Review"
+				      text="{i18n>ReviewText1}"/>
+				<Text id="Text2Review"
+				      text="{viewModel>/averageCycleText}"/>
+				<Text id="Text3Review"
+				      text="{viewModel>/startDateText}"/>
+				<MessageStrip id="MessageStrip"
+				              text="{viewModel>/fertilitySummary}"
+				              enableFormattedText="true"
+				              showIcon="false"
+				              showCloseButton="false"
+				              type="Success"/>
+			</layout:VerticalLayout>
+				<footer>
+					<Bar id="footerBarReview"
+					    class="sapUiResponsivePadding--header sapUiResponsivePadding--content">
+						<contentRight>
+							<Button id= "RecommencerBtn" text="Recommencer" press="handleWizardCancel"/>
+						</contentRight>
+					</Bar>
+				</footer>
+			
+		</Page>
+		</pages>
+		
+	</NavContainer>
 </mvc:View>
