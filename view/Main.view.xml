@@ -19,24 +19,26 @@
 					            title="{i18n>step1Title}"
 					            subsequentSteps="Step2a, Step2b"
 								validated="false"
-					            complete="goToStep2">
+					            >
 						<Text id="TextStep1"
 						      text="{i18n>step1Text}"
-						      width="100%"/>
+						      width="100%"
+							  class="sapUiMediumMarginBottom"/>
 						<HBox id="HboxStep1"
-						      justifyContent="Center"
+						      justifyContent="SpaceAround"
+						      class="sapUiLargeMarginStart sapUiLargeMarginEnd"
 						      alignItems="Center"
 						      width="100%">
 							<Button id="YesButton"
 							        text="Oui"
 							        width="150px"
 							        press="onPressYes"
-							        class="sapUiLargeMarginEnd"> </Button>
+							        class="sapUiLargeMarginStart"> </Button>
 							<Button id="NoButton"
 							        text="Non"
 							        width="150px"
 							        press="onPressNo"
-							        class="sapUiLargeMarginEnd"/>
+							        class="sapUiLargeMarginStart"/>
 						</HBox>
 					</WizardStep>
 					<WizardStep id="Step2a"
@@ -55,7 +57,7 @@
 							       type="Text"
 							       value="{viewModel>/averageCycleLength}"
 							       placeholder="{i18n>averageCyclePlaceholder}"
-							       width="250px"
+							       width="100%"
 							       change="check2a"
 							       class="sapUiSmallMarginTop"/>
 							<DatePicker id="startCycleInput"
@@ -64,7 +66,7 @@
 							            displayFormat="dd/MM/yyyy"
 							            valueFormat="yyyy-MM-dd"
 							            change="check2a"
-							            width="350px"
+							            width="300px"
 							            class="sapUiSmallMarginTop"/>
 						</VBox>
 					</WizardStep>
@@ -84,19 +86,20 @@
 								<InputListItem id="cycleListItem">
 									<HBox id="HboxListItem"
 									      alignItems="Center"
-									      justifyContent="SpaceBetween"
-									      width="40%">
+									      justifyContent="SpaceAround"
+									      width="100%">
 										<items>
 											<Label id="cycleLabel"
 											       text="{viewModel>label}"
 											       required="{viewModel>required}"
 											       wrapping="true"
-											       class="sapUiLargeMarginEnd"/>
+											       class="sapUiTinyMarginStart sapUiTinyMarginEnd"/>
 											<DatePicker id="cycleDatePicker"
 											            value="{viewModel>date}"
 											            displayFormat="dd/MM/yyyy"
 											            valueFormat="yyyy-MM-dd"
-											            change="check2b"/>
+											            change="check2b"
+														class="sapUiTinyMarginStart sapUiTinyMarginEnd"/>
 										</items>
 									</HBox>
 								</InputListItem>

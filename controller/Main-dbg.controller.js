@@ -156,7 +156,6 @@ sap.ui.define([
                         .map(dateStr => new Date(dateStr));
 
                     let diffs = [];
-                    debugger;
 
                     for (let i = 1; i < dates.length; i++) {
                         const diff = (dates[i] - dates[i - 1]) / (1000 * 60 * 60 * 24);
