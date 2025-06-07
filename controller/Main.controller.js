@@ -1,0 +1,2 @@
+sap.ui.define(["./BaseController","sap/m/MessageBox"],function(e,l){"use strict";return e.extend("cassyl.cycle.controller.Main",{sayHello:function(){l.show("Hello World!")}})});
+//# sourceMappingURL=Main.controller.js.map
